@@ -1,119 +1,116 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Luquinha Games celular </title>
+
+<title>Luquinha Games</title>
+
+<link rel="manifest" href="manifest.json">
+
+<link rel="icon" href="luquinha-games-icon-512.png">
+<link rel="apple-touch-icon" href="luquinha-games-icon-512.png">
+
+<meta name="theme-color" content="#00ff44">
 
 <style>
+
 body{
 margin:0;
-font-family:Arial, sans-serif;
-background:linear-gradient(180deg,#0f172a,#020617);
+font-family:Arial;
+background:black;
 color:white;
 text-align:center;
 }
 
 header{
+font-size:30px;
 padding:20px;
-font-size:28px;
+color:#00ff44;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:10px;
+background:#00ff44;
 font-weight:bold;
-background:#020617;
-box-shadow:0 0 20px #00ffff;
+margin:10px;
 }
 
 .games{
-display:grid;
-grid-template-columns:1fr;
-gap:20px;
 padding:20px;
 }
 
 .game{
-background:#0f172a;
-border-radius:20px;
-padding:25px;
-box-shadow:0 0 15px #00ffff55;
-transition:0.3s;
+background:#111;
+margin:15px;
+padding:20px;
+border-radius:15px;
 }
 
-.game:hover{
-transform:scale(1.05);
-box-shadow:0 0 25px #00ffff;
-}
-
-.game h2{
-margin:10px 0;
-}
-
-.play{
-background:#00ffff;
-border:none;
-padding:12px 20px;
-border-radius:10px;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.play:hover{
-background:#22ffff;
-}
-
-.emoji{
-font-size:50px;
-}
-
-footer{
-margin-top:30px;
-padding:10px;
-opacity:0.6;
-}
 </style>
+
 </head>
 
 <body>
 
-<header>
-🎮 Luquinha Games
-</header>
+<header>🎮 Luquinha Games</header>
+
+<button id="installBtn" style="display:none;">📱 Instalar App</button>
 
 <div class="games">
 
 <div class="game">
-<div class="emoji">🐹</div>
-<h2>Capy Care</h2>
-<button class="play" onclick="abrir('https://luquinha835.github.io/capy-care-')">
-Jogar
-</button>
+<h2>🐹 Capy Care</h2>
+<button onclick="abrir('https://luquinha835.github.io/capy-care-')">Jogar</button>
 </div>
 
 <div class="game">
-<div class="emoji">🧠</div>
-<h2>Desafio Matemático</h2>
-<button class="play" onclick="abrir('https://luquinha835.github.io/desfio-matematico')">
-Jogar
-</button>
+<h2>🧠 Desafio Matemático</h2>
+<button onclick="abrir('https://luquinha835.github.io/desfio-matematico')">Jogar</button>
 </div>
 
 <div class="game">
-<div class="emoji">🔨</div>
-<h2>Bater na Marmota</h2>
-<button class="play" onclick="abrir('https://luquinha835.github.io/marmot-game')">
-Jogar
-</button>
+<h2>🔨 Bater na Marmota</h2>
+<button onclick="abrir('https://luquinha835.github.io/marmot-game')">Jogar</button>
 </div>
 
 </div>
-
-<footer>
-Luquinha835 Games
-</footer>
 
 <script>
+
 function abrir(url){
-window.open(url,"_blank");
+window.open(url,"_blank")
 }
+
+/* registrar service worker */
+
+if("serviceWorker" in navigator){
+navigator.serviceWorker.register("service-worker.js")
+}
+
+/* botão instalar */
+
+let deferredPrompt
+
+window.addEventListener("beforeinstallprompt",(e)=>{
+
+e.preventDefault()
+
+deferredPrompt=e
+
+document.getElementById("installBtn").style.display="block"
+
+})
+
+installBtn.onclick=()=>{
+
+deferredPrompt.prompt()
+
+}
+
 </script>
 
 </body>

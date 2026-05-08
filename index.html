@@ -1,411 +1,103 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Luquinha Games</title>
-
-<meta name="theme-color" content="#00ff44">
 
 <style>
 
-/* GERAL */
-
 body{
 margin:0;
-font-family:Arial;
-background:black;
-color:white;
-overflow-x:hidden;
-text-align:center;
-}
-
-/* FUNDO ESTRELAS */
-
-canvas{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-1;
-}
-
-/* SPLASH SCREEN */
-
-#loading{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:black;
+height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-flex-direction:column;
-z-index:9999;
-}
-
-.logo{
-font-size:42px;
-font-weight:bold;
-color:#00ff44;
-text-shadow:
-0 0 10px #00ff44,
-0 0 20px #00ff44,
-0 0 40px #00ff44;
-animation:pulse 1.5s infinite;
-}
-
-@keyframes pulse{
-
-0%{
-transform:scale(1);
-}
-
-50%{
-transform:scale(1.08);
-}
-
-100%{
-transform:scale(1);
-}
-
-}
-
-.barra{
-width:280px;
-height:20px;
-background:#111;
-border-radius:20px;
+background:#000;
+font-family:Arial;
+color:white;
+text-align:center;
 overflow:hidden;
-margin-top:25px;
-box-shadow:0 0 15px #00ff44;
 }
 
-.progresso{
-width:0%;
-height:100%;
-background:#00ff44;
-transition:0.1s;
+/* fundo animado */
+body::before{
+content:"";
+position:absolute;
+width:200%;
+height:200%;
+background:
+radial-gradient(white 1px, transparent 1px);
+background-size:40px 40px;
+animation:stars 60s linear infinite;
+opacity:0.3;
 }
 
-#porcentagem{
-margin-top:15px;
-font-size:20px;
+@keyframes stars{
+from{transform:translateY(0);}
+to{transform:translateY(-1000px);}
 }
 
-/* APP */
-
-#app{
-display:none;
-padding-bottom:40px;
-}
-
-header{
-font-size:35px;
-padding:20px;
-color:#00ff44;
-text-shadow:0 0 15px #00ff44;
-}
-
-/* PERFIL */
-
-.perfil{
-background:#0f172add;
-margin:20px;
-padding:20px;
+.box{
+background:rgba(0,0,0,0.8);
+padding:40px;
 border-radius:20px;
-box-shadow:0 0 20px #00ff44;
+border:2px solid #00ffcc;
+box-shadow:0 0 20px #00ffcc;
 }
 
-input{
-padding:12px;
-border:none;
-border-radius:10px;
-width:220px;
+h1{
+margin-bottom:20px;
 }
-
-/* BOTÕES */
 
 button{
-padding:12px 20px;
+padding:15px 30px;
+margin:10px;
+font-size:18px;
 border:none;
 border-radius:10px;
-background:#00ff44;
-font-weight:bold;
 cursor:pointer;
-margin-top:10px;
-font-size:16px;
+transition:0.3s;
+}
+
+.pc{
+background:#00ff88;
+}
+
+.mobile{
+background:#00aaff;
 }
 
 button:hover{
-background:#00cc33;
-}
-
-/* JOGOS */
-
-.games{
-padding:20px;
-}
-
-.game{
-background:#111827dd;
-padding:20px;
-margin-bottom:20px;
-border-radius:20px;
-box-shadow:0 0 15px #00ff44;
-}
-
-.emoji{
-font-size:55px;
-}
-
-footer{
-margin-top:20px;
-opacity:0.7;
+transform:scale(1.1);
+box-shadow:0 0 15px white;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<!-- ESTRELAS -->
+<div class="box">
 
-<canvas id="stars"></canvas>
+<h1>🎮 Luquinha Games</h1>
+<p>Qual é o seu dispositivo?</p>
 
-<!-- TELA DE CARREGAMENTO -->
+<button class="pc" onclick="pc()">💻 PC / Notebook</button>
 
-<div id="loading">
-
-<div class="logo">
-🎮 LUQUINHA GAMES
-</div>
-
-<div class="barra">
-
-<div class="progresso" id="progresso"></div>
-
-</div>
-
-<div id="porcentagem">
-0%
-</div>
-
-</div>
-
-<!-- APP -->
-
-<div id="app">
-
-<header>
-🎮 Luquinha Games
-</header>
-
-<!-- PERFIL -->
-
-<div class="perfil">
-
-<h2>👤 Perfil do Jogador</h2>
-
-<input id="nome" placeholder="Digite seu nome">
-
-<br><br>
-
-<button onclick="salvarPerfil()">
-Salvar Perfil
-</button>
-
-<p id="info"></p>
-
-</div>
-
-<!-- JOGOS -->
-
-<div class="games">
-
-<div class="game">
-
-<div class="emoji">🐹</div>
-
-<h2>Capy Care</h2>
-
-<button onclick="abrir('https://luquinha835.github.io/capy-care-')">
-Jogar
-</button>
-
-</div>
-
-<div class="game">
-
-<div class="emoji">🧠</div>
-
-<h2>Desafio Matemático</h2>
-
-<button onclick="abrir('https://luquinha835.github.io/desfio-matematico')">
-Jogar
-</button>
-
-</div>
-
-<div class="game">
-
-<div class="emoji">🔨</div>
-
-<h2>Bater na Marmota</h2>
-
-<button onclick="abrir('https://luquinha835.github.io/marmot-game')">
-Jogar
-</button>
-
-</div>
-
-</div>
-
-<footer>
-Luquinha Games ©
-</footer>
+<button class="mobile" onclick="mobile()">📱 Celular</button>
 
 </div>
 
 <script>
 
-/* ABRIR JOGOS */
-
-function abrir(url){
-
-window.open(url,"_blank")
-
+function pc(){
+window.location.href="https://luccabusscsm-creator.github.io/games";
 }
 
-/* PERFIL */
-
-function salvarPerfil(){
-
-let nome = document.getElementById("nome").value
-
-localStorage.setItem("lg_nome", nome)
-
-document.getElementById("info").innerText =
-"Bem-vindo " + nome + " 🎮"
-
+function mobile(){
+window.location.href="https://luquinha835.github.io/luquinha-games2";
 }
-
-window.onload = function(){
-
-let nome = localStorage.getItem("lg_nome")
-
-if(nome){
-
-document.getElementById("info").innerText =
-"Bem-vindo de volta " + nome + " 🎮"
-
-}
-
-}
-
-/* TELA DE CARREGAMENTO */
-
-let progresso = 0
-
-let barra = document.getElementById("progresso")
-
-let porcentagem = document.getElementById("porcentagem")
-
-let loading = document.getElementById("loading")
-
-let app = document.getElementById("app")
-
-let intervalo = setInterval(()=>{
-
-progresso++
-
-barra.style.width = progresso + "%"
-
-porcentagem.innerText = progresso + "%"
-
-if(progresso >= 100){
-
-clearInterval(intervalo)
-
-setTimeout(()=>{
-
-loading.style.opacity = "0"
-
-loading.style.transition = "1s"
-
-setTimeout(()=>{
-
-loading.style.display = "none"
-
-app.style.display = "block"
-
-},1000)
-
-},500)
-
-}
-
-},50)
-
-/* ESTRELAS */
-
-const canvas = document.getElementById("stars")
-
-const ctx = canvas.getContext("2d")
-
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
-
-let stars = []
-
-for(let i=0;i<120;i++){
-
-stars.push({
-
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2
-
-})
-
-}
-
-function animate(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height)
-
-ctx.fillStyle = "white"
-
-for(let s of stars){
-
-ctx.beginPath()
-
-ctx.arc(s.x,s.y,s.r,0,Math.PI*2)
-
-ctx.fill()
-
-s.y += 0.3
-
-if(s.y > canvas.height){
-
-s.y = 0
-s.x = Math.random()*canvas.width
-
-}
-
-}
-
-requestAnimationFrame(animate)
-
-}
-
-animate()
 
 </script>
 
